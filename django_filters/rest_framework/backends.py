@@ -166,5 +166,10 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
             }
             if field.extra and 'choices' in field.extra:
                 parameter['schema']['enum'] = [c[0] for c in field.extra['choices']]
+                parameter['description'] += ": \n* " + (
+                    "\n* ".join(
+                        ["`{}` - {}".format(c[0], c[1]) for c in field.extra['choices']]
+                    )
+                )
             parameters.append(parameter)
         return parameters
